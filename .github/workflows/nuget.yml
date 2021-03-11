@@ -6,9 +6,7 @@ on:
       typeBuild:
         description: "É beta? (digite -beta)"
         required: false
-  # push:
-  #   branches:
-  #     - develop
+
 env:
   ACTIONS_ALLOW_UNSECURE_COMMANDS: true
   # Stop wasting time caching packages
@@ -17,7 +15,7 @@ env:
   DOTNET_CLI_TELEMETRY_OPTOUT: false
 
 jobs:
-  deploy-beta:
+  deploy-package:
     runs-on: ubuntu-latest
 
     steps:
@@ -34,15 +32,20 @@ jobs:
         run: |
           echo Version: $VERSION_PROJECT
           echo Version2: $VERSION_PACKAGE
-    #  - name: "Setup .NET Core"
-    #    uses: actions/setup-dotnet@v1
-    #    with:
-    #      dotnet-version: "5.0.x"
-    #  - name: Build Project
-    #    run: dotnet build ./src/Vip.Extensions.sln --configuration Release -p:Version=$VERSION_PROJECT
-    #  - name: Test Project
-    #    run: dotnet test ./src/Vip.Extensions.sln
-    #  - name: Create Package
-    #    run: dotnet pack ./src/Vip.Extensions/Vip.Extensions.csproj --configuration Release -p:Version=$VERSION_PACKAGE
-    #  - name: Publish Package
-    #    run: dotnet nuget push ./src/Vip.Extensions/bin/Release/*.nupkg -s https://api.nuget.org/v3/index.json -k ${{ secrets.NUGET_TOKEN }}
+
+      - name: "Setup .NET Core"
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: "5.0.x"
+
+      - name: Build Project
+        run: dotnet build ./src/Vip.Extensions.sln --configuration Release -p:Version=$VERSION_PROJECT
+
+      - name: Test Project
+        run: dotnet test ./src/Vip.Extensions.sln
+
+      - name: Create Package
+        run: dotnet pack ./src/Vip.Extensions/Vip.Extensions.csproj --configuration Release -p:Version=$VERSION_PACKAGE
+
+      - name: Publish Package
+        run: dotnet nuget push ./src/Vip.Extensions/bin/Release/*.nupkg -s https://api.nuget.org/v3/index.json -k ${{ secrets.NUGET_TOKEN }}
