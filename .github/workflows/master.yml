@@ -1,10 +1,10 @@
-name: Publish Beta to NuGet.org
+name: Publish Prod to NuGet.org
 
 on:
   workflow_dispatch
   # push:
   #   branches:
-  #     - develop
+  #     - master
 env:
   ACTIONS_ALLOW_UNSECURE_COMMANDS: true
   # Stop wasting time caching packages
@@ -24,7 +24,7 @@ jobs:
         run: echo ::set-env name=VERSION_PROJECT::1.0.${GITHUB_RUN_NUMBER}
 
       - name: "Set Package Version"
-        run: echo ::set-env name=VERSION_PACKAGE::${VERSION_PROJECT}-beta
+        run: echo ::set-env name=VERSION_PACKAGE::${VERSION_PROJECT}
 
       - name: "Variables Test"
         run: |
