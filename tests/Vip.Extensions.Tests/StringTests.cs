@@ -87,5 +87,51 @@ namespace Vip.Extensions.Tests
             // Assert
             Assert.Equal(expected, value.RemoveZeroLeft());
         }
+
+        [Fact]
+        public void String_IsGtin_DeveRetornarFalseCasoGtinForFalso()
+        {
+            // Arrange
+            const string codigoInvalido = "55";
+
+            // Act
+            var retorno = codigoInvalido.IsGtin();
+
+            // Assert
+            Assert.False(retorno);
+        }
+
+        [Theory]
+        [InlineData("123")]
+        [InlineData("1234")]
+        [InlineData("55")]
+        [InlineData("123654")]
+        [InlineData("1236978")]
+        public void String_IsGtin_DeveRetornarFalseCasoGtinNaoConterTamanho8ou12ou13ou14(string codigoInvalido)
+        {
+            // Act
+            var retorno = codigoInvalido.IsGtin();
+
+            // Assert
+            Assert.False(retorno);
+        }
+
+        [Theory]
+        [InlineData("7896645900026")]
+        [InlineData("7898908141016")]
+        [InlineData("7893946087173")]
+        [InlineData("7897186015095")]
+        [InlineData("7891060886139")]
+        [InlineData("7898132132019")]
+        [InlineData("7506195185568")]
+        [InlineData("12345670")]
+        public void String_IsGtin_DeveRetornarTrueCasoGtinForValido(string codigoValido)
+        {
+            // Act
+            var retorno = codigoValido.IsGtin();
+
+            // Assert
+            Assert.True(retorno);
+        }
     }
 }
