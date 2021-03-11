@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		
+		<PackageId>Vip.Extensions</PackageId>
+		<version>1.0.0</version>
+		<License>MIT</License>
+		<Authors>Leandro Ferreira</Authors>
+		<Company>VIP Soluções</Company>
+		<PackageDescription>Métodos de extensão VIP</PackageDescription>
+		<Description>Métodos de extensão VIP</Description>
+		<RepositoryUrl>https://github.com/leandrovip/Vip.Extensions</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/leandrovip/Vip.Extensions</PackageProjectUrl>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageTags>Extensions;Methods;VIP</PackageTags>
+		<Title>Vip.Extensions</Title>
+		<Summary>Biblioteca com alguns métodos de extensão que são frequentemente utilizados e que dão uma boa produtividade no desenvolvimento.</Summary>
+	</PropertyGroup>
+
+</Project>

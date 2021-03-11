@@ -1,0 +1,48 @@
+name: Publish to NuGet.org
+
+on:
+  push:
+    branches:
+      - develop
+env:
+  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+  # Stop wasting time caching packages
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  # Disable sending usage data to Microsoft
+  DOTNET_CLI_TELEMETRY_OPTOUT: false
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Checkout branch develop"
+        uses: actions/checkout@main
+
+      - name: "Set Project Version"
+        run: echo ::set-env name=VERSION_PROJECT::1.0.${GITHUB_RUN_NUMBER}
+
+      - name: "Set Package Version"
+        run: echo ::set-env name=VERSION_PACKAGE::${VERSION_PROJECT}-beta
+
+      - name: "Variables Test"
+        run: |
+          echo Version: $VERSION_PROJECT
+          echo Version2: $VERSION_PACKAGE
+
+      - name: "Setup .NET Core"
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: "5.0.x"
+
+      - name: Build Project
+        run: dotnet build ./src/Vip.Extensions.sln --configuration Release -p:Version=$VERSION_PROJECT
+
+      - name: Test Project
+        run: dotnet test ./src/Vip.Extensions.sln
+
+      - name: Create Package
+        run: dotnet pack ./src/Vip.Extensions/Vip.Extensions.csproj --configuration Release -p:Version=$VERSION_PACKAGE
+
+      - name: Publish Package
+        run: dotnet nuget push ./src/Vip.Extensions/bin/Release/*.nupkg -k ${{ secrets.NUGET_TOKEN }} -s https://api.nuget.org/v3/index.json
