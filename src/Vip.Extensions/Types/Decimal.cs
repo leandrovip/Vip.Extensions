@@ -8,6 +8,11 @@ public static partial class Methods
         return value <= 0 ? 1 : value;
     }
 
+    public static decimal NotNegative(this decimal value, decimal defaultValue = 0)
+    {
+        return value < 0 ? defaultValue : value;
+    }
+
     public static decimal Division(this decimal numerator, decimal denominator)
     {
         return denominator == 0 ? 0 : numerator / denominator;

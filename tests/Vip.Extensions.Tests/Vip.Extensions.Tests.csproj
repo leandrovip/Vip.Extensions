@@ -23,4 +23,8 @@
     <ProjectReference Include="..\..\src\Vip.Extensions\Vip.Extensions.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Helpers\" />
+  </ItemGroup>
+
 </Project>
