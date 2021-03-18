@@ -57,5 +57,19 @@ namespace Vip.Extensions.Tests
             // Assert
             Assert.Equal(valueDefault, result);
         }
+
+        [Fact]
+        public void DecimalTests_NotNegative_DeveRetornarZeroCasoInformadoNumeroNegativoComoDefault()
+        {
+            // Arrange
+            const decimal valueInvalid = -10;
+            const decimal defaultInvalid = -2;
+
+            // Act
+            var result = valueInvalid.NotNegative(defaultInvalid);
+
+            // Assert
+            Assert.Equal(0, result);
+        }
     }
 }
