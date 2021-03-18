@@ -10,6 +10,7 @@ public static partial class Methods
 
     public static decimal NotNegative(this decimal value, decimal defaultValue = 0)
     {
+        if (defaultValue < 0) defaultValue = 0;
         return value < 0 ? defaultValue : value;
     }
 

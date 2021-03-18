@@ -45,5 +45,19 @@ namespace Vip.Extensions.Tests
             // Assert
             Assert.Equal(valueDefault, result);
         }
+
+        [Fact]
+        public void IntTests_NotNegative_DeveRetornarZeroCasoInformadoNumeroNegativoComoDefault()
+        {
+            // Arrange
+            const int valueInvalid = -10;
+            const int defaultInvalid = -2;
+
+            // Act
+            var result = valueInvalid.NotNegative(defaultInvalid);
+
+            // Assert
+            Assert.Equal(0, result);
+        }
     }
 }

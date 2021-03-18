@@ -7,6 +7,7 @@
 
     public static int NotNegative(this int value, int defaultValue = 0)
     {
+        if (defaultValue < 0) defaultValue = 0;
         return value < 0 ? defaultValue : value;
     }
 }
