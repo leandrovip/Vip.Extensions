@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 
 public static partial class Methods
@@ -157,6 +158,19 @@ public static partial class Methods
         value = value.OnlyNumbers();
         int.TryParse(value, out var result);
         return result != 0 ? result : valueDefault;
+    }
+
+    public static T TryParse<T>(this string input)
+    {
+        try
+        {
+            var converter = TypeDescriptor.GetConverter(typeof(T));
+            return (T) converter.ConvertFromString(input);
+        }
+        catch (NotSupportedException)
+        {
+            return default;
+        }
     }
 
     /// <summary>

@@ -133,5 +133,18 @@ namespace Vip.Extensions.Tests
             // Assert
             Assert.True(retorno);
         }
+
+        [Fact]
+        public void String_TryParse_DeveRetornarValorConvertido()
+        {
+            // Arrange
+            const decimal expected = 121.32m;
+            const string value = "121,32";
+
+            // Act
+
+            // Assert
+            Assert.Equal(expected, value.TryParse<decimal>());
+        }
     }
 }
