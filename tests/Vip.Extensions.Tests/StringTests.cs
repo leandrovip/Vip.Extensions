@@ -1,4 +1,6 @@
-﻿using Xunit;
+﻿using System.Globalization;
+using System.Threading;
+using Xunit;
 
 namespace Vip.Extensions.Tests
 {
@@ -138,6 +140,13 @@ namespace Vip.Extensions.Tests
         public void String_TryParse_DeveRetornarValorConvertido()
         {
             // Arrange
+            // Change current culture
+            CultureInfo culture;
+            culture = CultureInfo.GetCultureInfo("pt-BR");
+
+            Thread.CurrentThread.CurrentCulture = culture;
+            Thread.CurrentThread.CurrentUICulture = culture;
+
             const decimal expected = 121.32m;
             const string value = "121,32";
 
