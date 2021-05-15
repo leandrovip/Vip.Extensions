@@ -140,10 +140,7 @@ namespace Vip.Extensions.Tests
         public void String_TryParse_DeveRetornarValorConvertido()
         {
             // Arrange
-            // Change current culture
-            CultureInfo culture;
-            culture = CultureInfo.GetCultureInfo("pt-BR");
-
+            var culture = CultureInfo.GetCultureInfo("pt-BR");
             Thread.CurrentThread.CurrentCulture = culture;
             Thread.CurrentThread.CurrentUICulture = culture;
 
