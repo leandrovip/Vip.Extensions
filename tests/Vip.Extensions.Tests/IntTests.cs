@@ -59,5 +59,19 @@ namespace Vip.Extensions.Tests
             // Assert
             Assert.Equal(0, result);
         }
+
+        [Fact]
+        public void IntTests_Division_DeveRetornarDivisaoCorreta()
+        {
+            // Arrange
+            const int value = 10;
+            const int denominator = 3;
+
+            // Act
+            var result = value.Division(denominator);
+
+            // Assert
+            Assert.Equal(3.33m, result);
+        }
     }
 }

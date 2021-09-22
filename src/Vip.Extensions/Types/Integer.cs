@@ -10,4 +10,9 @@
         if (defaultValue < 0) defaultValue = 0;
         return value < 0 ? defaultValue : value;
     }
+
+    public static decimal Division(this int numerator, decimal denominator)
+    {
+        return denominator == 0 ? 0 : (numerator / denominator).Round();
+    }
 }
