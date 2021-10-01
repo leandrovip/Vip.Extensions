@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Reflection;
 
 public static partial class Methods
 {
@@ -31,5 +33,20 @@ public static partial class Methods
             : sourceType.GetProperty(path)?.GetValue(root, null);
 
         return (T) result;
+    }
+
+    public static T GetValue<T>(this PropertyInfo property, object source) where T : struct
+    {
+        try
+        {
+            var value = property.GetValue(source);
+            var typeCode = Type.GetTypeCode(typeof(T));
+            var convert = (T) Convert.ChangeType(value, typeCode);
+            return convert;
+        }
+        catch
+        {
+            return new T();
+        }
     }
 }
