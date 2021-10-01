@@ -35,7 +35,7 @@ public static partial class Methods
         return (T) result;
     }
 
-    public static T GetValue<T>(this PropertyInfo property, object source) where T : struct
+    public static T GetValue<T>(this PropertyInfo property, object source)
     {
         try
         {
@@ -46,7 +46,7 @@ public static partial class Methods
         }
         catch
         {
-            return new T();
+            return Type.GetTypeCode(typeof(T)) == TypeCode.String ? (T) (object) string.Empty : default;
         }
     }
 }

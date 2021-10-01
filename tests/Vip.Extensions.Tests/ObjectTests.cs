@@ -1,4 +1,6 @@
-﻿using Xunit;
+﻿using System;
+using Vip.Extensions.Tests.Model;
+using Xunit;
 
 namespace Vip.Extensions.Tests
 {
@@ -50,6 +52,90 @@ namespace Vip.Extensions.Tests
             // Assert
             Assert.True(valid.IsNotNullOrEmpty());
             Assert.False(invalid.IsNotNullOrEmpty());
+        }
+
+        [Fact]
+        public void Object_GetValue_Decimal()
+        {
+            // Arrange
+            var produto = Produto.Novo();
+
+            // Act
+            var property = produto.GetType().GetProperty("Valor");
+
+            // Assert
+            Assert.IsAssignableFrom<decimal>(property.GetValue<decimal>(produto));
+            Assert.Equal(Produto.ValorConst, property.GetValue<decimal>(produto));
+        }
+
+        [Fact]
+        public void Object_GetValue_DecimalInvalido()
+        {
+            // Arrange
+            var produto = Produto.Novo();
+
+            // Act
+            var property = produto.GetType().GetProperty("ValorInvalido");
+
+            // Assert
+            Assert.IsAssignableFrom<decimal>(property.GetValue<decimal>(produto));
+            Assert.Equal(0m, property.GetValue<decimal>(produto));
+        }
+
+        [Fact]
+        public void Object_GetValue_String()
+        {
+            // Arrange
+            var produto = Produto.Novo();
+
+            // Act
+            var property = produto.GetType().GetProperty("Descricao");
+
+            // Assert
+            Assert.IsAssignableFrom<string>(property.GetValue<string>(produto));
+            Assert.Equal(Produto.DescricaoConst, property.GetValue<string>(produto));
+        }
+
+        [Fact]
+        public void Object_GetValue_StringInvalido()
+        {
+            // Arrange
+            var produto = Produto.Novo();
+
+            // Act
+            var property = produto.GetType().GetProperty("DescricaoInvalida");
+
+            // Assert
+            Assert.IsAssignableFrom<string>(property.GetValue<string>(produto));
+            Assert.Equal(string.Empty, property.GetValue<string>(produto));
+        }
+
+        [Fact]
+        public void Object_GetValue_Datetime()
+        {
+            // Arrange
+            var produto = Produto.Novo();
+
+            // Act
+            var property = produto.GetType().GetProperty("Validade");
+
+            // Assert
+            Assert.IsAssignableFrom<DateTime>(property.GetValue<DateTime>(produto));
+            Assert.True(DateTime.TryParse(property.GetValue<DateTime>(produto).ToString(), out _));
+        }
+
+        [Fact]
+        public void Object_GetValue_DateTimeInvalido()
+        {
+            // Arrange
+            var produto = Produto.Novo();
+
+            // Act
+            var property = produto.GetType().GetProperty("ValidadeInvalida");
+
+            // Assert
+            Assert.IsAssignableFrom<DateTime>(property.GetValue<DateTime>(produto));
+            Assert.True(DateTime.TryParse(property.GetValue<DateTime>(produto).ToString(), out _));
         }
     }
 }
