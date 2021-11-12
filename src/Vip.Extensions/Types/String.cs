@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
+using System.Text;
 
 public static partial class Methods
 {
@@ -201,5 +201,10 @@ public static partial class Methods
 
         var check = (10 - sum % 10) % 10;
         return check == digit;
+    }
+
+    public static byte[] ToUTF8Bytes(this string value)
+    {
+        return Encoding.UTF8.GetBytes(value);
     }
 }
