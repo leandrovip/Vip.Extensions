@@ -41,6 +41,11 @@ public static partial class Methods
         return Math.Abs(value);
     }
 
+    public static float ToFloat(this decimal value)
+    {
+        return (float) value;
+    }
+
     public static string ToExtension(this decimal amount)
     {
         if ((amount <= 0) | (amount >= 1000000000000000))
