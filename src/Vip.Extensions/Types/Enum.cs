@@ -19,4 +19,12 @@ public static partial class Methods
 
         return value.ToString(CultureInfo.InstalledUICulture);
     }
+
+    public static int ToInt<T>(this T value, int valueDefault = 0) where T : struct, IConvertible
+    {
+        var type = value.GetType();
+        if (!type.IsEnum) return valueDefault;
+
+        return (int) (object) value;
+    }
 }
