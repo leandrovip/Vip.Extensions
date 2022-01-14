@@ -37,7 +37,7 @@ public static partial class Methods
         const string withoutAccent = "AAAAAAaaaaaEEEEeeeeIIIIiiiiOOOOOoooooUUUuuuuCcE   ";
 
         for (var i = 0; i < withAccent.Length; i++) value = value.Replace(withAccent[i].ToString(), withoutAccent[i].ToString());
-        return value.TrimVip();
+        return value;
     }
 
     public static string RemoveSpecialChars(this string value)
