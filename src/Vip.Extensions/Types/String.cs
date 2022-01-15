@@ -74,7 +74,7 @@ public static partial class Methods
     public static string StringFill(this string value, int length, char with = ' ', bool left = true)
     {
         if (value.IsNullOrEmpty()) value = string.Empty;
-
+        
         if (value.Length > length)
         {
             value = value.Remove(length);
@@ -105,6 +105,7 @@ public static partial class Methods
 
     public static string ZeroFill(this string value, int length)
     {
+        if (value.Length > length) return value;
         return value.OnlyNumbers().StringFill(length, '0');
     }
 

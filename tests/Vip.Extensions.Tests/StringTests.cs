@@ -152,5 +152,18 @@ namespace Vip.Extensions.Tests
             // Assert
             Assert.Equal(expected, value.TryParse<decimal>());
         }
+
+        [Fact]
+        public void StringTests_ZeroFill_DeveRetornarMesmoValorCasoTamanhoAtualForMaior()
+        {
+            // Arrange
+            const string teste = "000001";
+
+            // Act
+            var resultado = teste.ZeroFill(4);
+
+            // Assert
+            Assert.Equal(teste, resultado);
+        }
     }
 }
