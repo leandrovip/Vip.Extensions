@@ -137,5 +137,31 @@ namespace Vip.Extensions.Tests
             Assert.IsAssignableFrom<DateTime>(property.GetValue<DateTime>(produto));
             Assert.True(DateTime.TryParse(property.GetValue<DateTime>(produto).ToString(), out _));
         }
+
+        [Fact]
+        public void Object_Name_NameProperty()
+        {
+            // Arrange
+            var produto = Produto.Novo();
+
+            // Act
+            var nome = produto.Name(x => x.Descricao);
+
+            // Assert
+            Assert.Equal("Descricao", nome);
+        }
+
+        [Fact]
+        public void Object_FullName_FullNameProperty()
+        {
+            // Arrange
+            var produto = Produto.Novo();
+
+            // Act
+            var nome = produto.FullName(x => x.Descricao);
+
+            // Assert
+            Assert.Equal("Produto.Descricao", nome);
+        }
     }
 }

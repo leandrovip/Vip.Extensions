@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 
 public static partial class Methods
@@ -48,5 +49,25 @@ public static partial class Methods
         {
             return Type.GetTypeCode(typeof(T)) == TypeCode.String ? (T) (object) string.Empty : default;
         }
+    }
+
+    /// <summary>
+    ///     Get Property Name
+    /// </summary>
+    /// <returns>NameProperty</returns>
+    public static string Name<T, TProp>(this T temp, Expression<Func<T, TProp>> propertySelector)
+    {
+        var body = (MemberExpression) propertySelector.Body;
+        return body.Member.Name;
+    }
+
+    /// <summary>
+    ///     Get Property FullName
+    /// </summary>
+    /// <returns>Class.NameProperty</returns>
+    public static string FullName<T, TProp>(this T temp, Expression<Func<T, TProp>> propertySelector)
+    {
+        var body = (MemberExpression) propertySelector.Body;
+        return $"{body.Member.DeclaringType.Name}.{body.Member.Name}";
     }
 }
