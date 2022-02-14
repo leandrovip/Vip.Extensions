@@ -33,6 +33,9 @@ public static partial class Methods
             ? sourceType.GetProperty(path)?.GetValue(root, null)?.ToString()
             : sourceType.GetProperty(path)?.GetValue(root, null);
 
+        if (result.IsNull())
+            result = (T) default;
+
         return (T) result;
     }
 

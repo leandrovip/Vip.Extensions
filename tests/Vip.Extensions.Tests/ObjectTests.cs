@@ -163,5 +163,46 @@ namespace Vip.Extensions.Tests
             // Assert
             Assert.Equal("Produto.Descricao", nome);
         }
+
+        [Fact]
+        public void Object_GetPropertyValue_DeveRetornarValorPadraoCasoNaoEncontrado()
+        {
+            // Arrange
+            var model = new Produto();
+
+            // Act
+            var validar = model.GetPropertyValue<bool>("Validar");
+
+            // Assert
+            Assert.False(validar);
+        }
+
+        [Fact]
+        public void Object_GetPropertyValue_DeveRetornarValorPadrao0CasoNaoEncontrado()
+        {
+            // Arrange
+            var model = new Produto();
+
+            // Act
+            var numero = model.GetPropertyValue<int>("Numero");
+
+            // Assert
+            Assert.Equal(0, numero);
+        }
+
+        [Fact]
+        public void Object_GetPropertyValue_DeveRetornarValorCorreto()
+        {
+            // Arrange
+            var model = new Produto {Descricao = "Descrição do Produto", Inativo = true};
+
+            // Act
+            var inativo = model.GetPropertyValue<bool>("Inativo");
+            var descricao = model.GetPropertyValue<string>("Descricao");
+
+            // Assert
+            Assert.True(inativo);
+            Assert.Equal("Descrição do Produto", descricao);
+        }
     }
 }

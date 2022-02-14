@@ -10,6 +10,7 @@ namespace Vip.Extensions.Tests.Model
         public decimal Valor { get; set; }
         public int Numero { get; set; }
         public DateTime Validade { get; set; }
+        public bool Inativo { get; set; }
 
         #endregion
 
