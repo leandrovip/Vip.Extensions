@@ -71,5 +71,41 @@ namespace Vip.Extensions.Tests
             // Assert
             Assert.Equal(0, result);
         }
+
+        [Theory]
+        [InlineData(1.1)]
+        [InlineData(2.99)]
+        [InlineData(27.3)]
+        [InlineData(28.9)]
+        public void DecimalTests_Between_DeveRetornarTrueCasoNumeroForEntre1ponto1e28ponto9(decimal numero)
+        {
+            // Arrange
+            const decimal numero1 = 1.1m;
+            const decimal numero28 = 28.9m;
+
+            // Act
+            var retorno = numero.Between(numero1, numero28);
+
+            // Assert
+            Assert.True(retorno);
+        }
+
+        [Theory]
+        [InlineData(-1.1)]
+        [InlineData(0.2)]
+        [InlineData(1)]
+        [InlineData(29)]
+        public void DecimalTests_Between_DeveRetornarFalseCasoNumeroNaoForEntre1ponto1e28ponto9(decimal numero)
+        {
+            // Arrange
+            const decimal numero1 = 1.1m;
+            const decimal numero28 = 28.9m;
+
+            // Act
+            var retorno = numero.NotBetween(numero1, numero28);
+
+            // Assert
+            Assert.True(retorno);
+        }
     }
 }

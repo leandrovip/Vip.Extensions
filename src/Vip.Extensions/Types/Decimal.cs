@@ -272,4 +272,14 @@ public static partial class Methods
     {
         return value.ToString(CultureInfo.InstalledUICulture).Replace(",", ".");
     }
+
+    public static bool Between(this decimal value, decimal firstNumber, decimal lastNumber)
+    {
+        return value >= firstNumber && value <= lastNumber;
+    }
+
+    public static bool NotBetween(this decimal value, decimal firstNumber, decimal lastNumber)
+    {
+        return !value.Between(firstNumber, lastNumber);
+    }
 }
