@@ -15,4 +15,14 @@
     {
         return denominator == 0 ? 0 : (numerator / denominator).Round();
     }
+
+    public static bool Between(this int value, int firstNumber, int lastNumber)
+    {
+        return value >= firstNumber && value <= lastNumber;
+    }
+
+    public static bool NotBetween(this int value, int firstNumber, int lastNumber)
+    {
+        return !value.Between(firstNumber, lastNumber);
+    }
 }
