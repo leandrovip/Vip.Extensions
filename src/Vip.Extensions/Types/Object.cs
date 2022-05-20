@@ -13,6 +13,7 @@ public static partial class Methods
     public static T GetPropertyValue<T>(this object value, string propertyName)
     {
         if (value == null) return default;
+        if (propertyName.IsNullOrEmpty()) return default;
 
         var parts = propertyName.Split('.');
         var path = propertyName;

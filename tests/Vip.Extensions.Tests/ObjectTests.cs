@@ -83,6 +83,20 @@ namespace Vip.Extensions.Tests
         }
 
         [Fact]
+        public void Object_GetValue_DecimalNulo()
+        {
+            // Arrange
+            var produto = Produto.Novo();
+
+            // Act
+            var property = produto.GetType().GetProperty("ValorInvalido");
+
+            // Assert
+            Assert.IsAssignableFrom<decimal>(property.GetValue<decimal>(produto));
+            Assert.Equal(0m, property.GetValue<decimal>(null));
+        }
+
+        [Fact]
         public void Object_GetValue_String()
         {
             // Arrange
@@ -185,6 +199,19 @@ namespace Vip.Extensions.Tests
 
             // Act
             var numero = model.GetPropertyValue<int>("Numero");
+
+            // Assert
+            Assert.Equal(0, numero);
+        }
+
+        [Fact]
+        public void Object_GetPropertyValue_DeveRetornarValorPadrao0CasoNulo()
+        {
+            // Arrange
+            var model = new Produto();
+
+            // Act
+            var numero = model.GetPropertyValue<int>(null);
 
             // Assert
             Assert.Equal(0, numero);

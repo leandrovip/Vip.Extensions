@@ -38,4 +38,14 @@ public static partial class Methods
     {
         return extList.GroupBy(groupProps).Where(z => z.Count() > 1).SelectMany(z => z);
     }
+
+    public static bool ExistsRepeated<T>(this IEnumerable<T> list, Func<T, object> groupProps) where T : class
+    {
+        return GetAllRepeated(list, groupProps).Any();
+    }
+
+    public static bool NotExistsRepeated<T>(this IEnumerable<T> list, Func<T, object> groupProps) where T : class
+    {
+        return !ExistsRepeated(list, groupProps);
+    }
 }
