@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 public static partial class Methods
 {
@@ -73,5 +74,17 @@ public static partial class Methods
     {
         var body = (MemberExpression) propertySelector.Body;
         return $"{body.Member.DeclaringType.Name}.{body.Member.Name}";
+    }
+
+    public static string FullMethodName(this object value, [CallerMemberName] string methodName = "")
+    {
+        if (value == null) return "";
+        var baseName = value.GetType().Name;
+        return methodName.IsNotNullOrEmpty() ? $"{baseName}.{methodName}" : baseName;
+    }
+
+    public static string MethodName(this object value, [CallerMemberName] string methodName = "")
+    {
+        return value == null ? "" : methodName;
     }
 }

@@ -166,6 +166,31 @@ namespace Vip.Extensions.Tests
         }
 
         [Fact]
+        public void Object_FullMethodName()
+        {
+            // Arrange
+            const string expected = "ObjectTests.Object_FullMethodName";
+
+            // Act
+            var result = this.FullMethodName();
+            // Assert
+            Assert.Equal(expected, result);
+        }
+
+
+        [Fact]
+        public void Object_MethodName()
+        {
+            // Arrange
+            const string expected = "Object_MethodName";
+
+            // Act
+            var result = this.MethodName();
+            // Assert
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
         public void Object_FullName_FullNameProperty()
         {
             // Arrange
