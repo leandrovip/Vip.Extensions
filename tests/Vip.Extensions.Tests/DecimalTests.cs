@@ -107,5 +107,16 @@ namespace Vip.Extensions.Tests
             // Assert
             Assert.True(retorno);
         }
+
+
+        [Theory]
+        [InlineData(1.99, 1)]
+        [InlineData(0.2, 0)]
+        [InlineData(1.3, 1)]
+        public void DecimalTests_ToInt_DeveRetornarValorConvertido(decimal valorDecimal, int valorInt)
+        {
+            // Assert
+            Assert.Equal(valorInt, valorDecimal.ToInt());
+        }
     }
 }

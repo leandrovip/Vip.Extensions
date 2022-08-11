@@ -36,6 +36,11 @@ public static partial class Methods
         return value * percentage / 100m;
     }
 
+    public static int ToInt(this decimal value)
+    {
+        return decimal.ToInt32(value);
+    }
+
     public static decimal ToAbs(this decimal value)
     {
         return Math.Abs(value);
