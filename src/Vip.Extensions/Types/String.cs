@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 public static partial class Methods
 {
@@ -74,7 +76,7 @@ public static partial class Methods
     public static string StringFill(this string value, int length, char with = ' ', bool left = true)
     {
         if (value.IsNullOrEmpty()) value = string.Empty;
-        
+
         if (value.Length > length)
         {
             value = value.Remove(length);
@@ -207,5 +209,30 @@ public static partial class Methods
     public static byte[] ToUTF8Bytes(this string value)
     {
         return Encoding.UTF8.GetBytes(value);
+    }
+
+    public static void SafelyWriteToFile(this string value, string filePath, bool overwrite = true)
+    {
+        var mutexId = $"Global\\{{{Path.GetFileNameWithoutExtension(filePath)}}}";
+
+        using (var mutex = new Mutex(false, mutexId))
+        {
+            var hasHandle = false;
+
+            try
+            {
+                hasHandle = mutex.WaitOne(Timeout.Infinite, false);
+
+                if (overwrite)
+                    File.WriteAllText(filePath, value);
+                else
+                    File.AppendAllText(filePath, value);
+            }
+            finally
+            {
+                if (hasHandle)
+                    mutex.ReleaseMutex();
+            }
+        }
     }
 }
