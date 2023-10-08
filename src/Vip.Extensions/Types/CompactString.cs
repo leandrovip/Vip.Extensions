@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.IO.Compression;
 using System.Text;
 
@@ -19,16 +18,15 @@ public static partial class Methods
 
     public static string UnzipString(this byte[] value)
     {
-        // Read the last 4 bytes to get the length
-        var lengthBuffer = new byte[4];
-        Array.Copy(value, value.Length - 4, lengthBuffer, 0, 4);
-        var uncompressedSize = BitConverter.ToInt32(lengthBuffer, 0);
+        using (var memoryStream = new MemoryStream(value))
+        using (var gZipStream = new GZipStream(memoryStream, CompressionMode.Decompress))
+        using (var resultStream = new MemoryStream())
+        {
+            var buffer = new byte[4096];
+            int bytesRead;
+            while ((bytesRead = gZipStream.Read(buffer, 0, buffer.Length)) > 0) resultStream.Write(buffer, 0, bytesRead);
 
-        var buffer = new byte[uncompressedSize];
-        using (var ms = new MemoryStream(value))
-        using (var gzip = new GZipStream(ms, CompressionMode.Decompress))
-            gzip.Read(buffer, 0, uncompressedSize);
-
-        return Encoding.UTF8.GetString(buffer);
+            return Encoding.UTF8.GetString(resultStream.ToArray());
+        }
     }
 }
